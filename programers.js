@@ -369,3 +369,77 @@ function ex25(num_list) {
     num_list.push(b*2)
     return num_list
 }
+
+
+// 수 조작하기
+function ex26(n, control) {
+    for (let ele of control) {
+        switch(ele) {
+            case 'w':
+                n += 1   
+                break;
+            case 's':
+                n -= 1
+                break;
+            case 'd':
+                n += 10
+                break;
+            case 'a':
+                n -= 10
+                break;
+        }    
+    }
+    return n
+}
+
+// 수 조작하기 2
+function ex27(numLog) {
+    let a = ''
+    
+    for(let i = 0; i < numLog.length; i++) {
+        switch (true) {
+            case numLog[i]+1 === numLog[i+1]:
+                a += 'w';
+                break;
+            case numLog[i]-1 === numLog[i+1]:
+                a += 's';
+                break;
+            case numLog[i]+10 === numLog[i+1]:
+                a += 'd';
+                break;
+            case numLog[i]-10 === numLog[i+1]:
+                a += 'a';
+                break;
+        }
+    }
+    return a
+}
+// 음... 좀 더 괜찮은 방법이 있을듯...
+
+// chatGPT에 리팩토링 요청, forEach를 사용해서 순회 
+// 이것도 마찬가지로 index를 사용하기는 하지만 위에 저것보단 좀 나은듯... 
+function ex27(numLog) {
+    let a = '';
+
+    numLog.forEach((cur, index) => {
+        const next = numLog[index + 1];
+        const diff = next - cur;
+
+            switch (diff) {
+                case 1:
+                    a += 'w';
+                    break;
+                case -1:
+                    a += 's';
+                    break;
+                case 10:
+                    a += 'd';
+                    break;
+                case -10:
+                    a += 'a';
+                    break;
+            }
+    });
+
+    return a;
+}
