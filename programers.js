@@ -278,3 +278,37 @@ function ex21(a, d, included) {
 
     return answer;
 }
+
+
+
+// 주사위 게임2
+function ex22(a, b, c) {
+    let answer = 0;
+    if (a === b && b === c) {
+        answer =   (a + b + c) * (a**2 + b**2 + c**2 ) * (a ** 3 + b ** 3 + c ** 3 )
+    } else if (a === b || a === c || b === c) {
+        answer =   (a + b + c) * (a **2 + b **2 + c **2 );
+    } else {
+        answer = a + b + c  
+    }
+    return answer    
+}
+
+
+// 원소들의 곱과 합
+function ex23(num_list) {
+    let add = 0 
+    let multiple = num_list[0]
+    
+    for(let ele of num_list) {
+        add += ele
+        multiple *= ele
+    }
+    
+    console.log(add**2, multiple )
+    if (multiple/3 < add**2) {
+        return 1
+    } 
+    return 0 
+}
+
