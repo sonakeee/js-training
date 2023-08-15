@@ -297,18 +297,75 @@ function ex22(a, b, c) {
 
 // 원소들의 곱과 합
 function ex23(num_list) {
-    let add = 0 
-    let multiple = num_list[0]
+    let a = num_list.reduce((acc, cur) => {
+        return cur + acc
+    })
+    let b = num_list.reduce((acc, cur) => {
+        return cur * acc
+    })
     
-    for(let ele of num_list) {
-        add += ele
-        multiple *= ele
-    }
-    
-    console.log(add**2, multiple )
-    if (multiple/3 < add**2) {
+    if (b < a ** 2) {
         return 1
     } 
-    return 0 
+    return 0
 }
 
+// 이어 붙인 수
+function ex24(num_list) {
+    let a = ''
+    let b = ''
+    for(let ele of num_list) {
+        if (ele % 2 === 0) {
+            a += ele
+        } else {
+        b += ele
+        }
+    }
+    return Number(a) + Number(b)
+}
+
+// 마지막 두 원소
+// 음 좀 개떡같다 그냥 풀리는대로 푼 느낌이라서 리팩토링을 하고싶다.
+function ex25(num_list) {
+    const leng = num_list.length
+    const a =  num_list[leng-2]
+    const b = num_list[leng-1]
+    let check = num_list
+    
+    let answer = 0
+    if (a < b ) {
+        answer = b-a 
+    } else {
+        answer = b*2
+    }
+    check.push(answer)
+    return check
+}
+
+// 이렇게 변경했지만 구조분해할당 외엔 마음에든다는 느낌이없다..
+function ex25(num_list) {
+    let check = num_list
+    const [a, b] = num_list.slice(-2); 
+    let answer = 0
+    
+    if (a < b ) {
+        answer = b-a 
+    } else {
+        answer = b*2
+    }
+    
+    check.push(answer)
+    return check
+}
+
+// 이건 그나마 조금 괜찮다.  
+function ex25(num_list) {
+    const [a, b] = num_list.slice(-2); 
+    
+    if (a < b ) {
+        num_list.push(b-a)
+        return num_list 
+    } 
+    num_list.push(b*2)
+    return num_list
+}
