@@ -443,3 +443,13 @@ function ex27(numLog) {
 
     return a;
 }
+
+// 수열과 구간 쿼리 3
+function ex28(arr, queries) {
+    queries.forEach((ele)=> {
+        [arr[ele[0]], arr[ele[1]]] = [arr[ele[1]], arr[ele[0]]];
+    })
+    return arr
+}
+
+
