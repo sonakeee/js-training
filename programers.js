@@ -478,4 +478,37 @@ function ex29(arr, queries) {
 // 약간 아쉽긴한데 위에것보단 좀 나은것같다
 
 
+// 수열과 구간 쿼리 4
+// 첫 답...
+function ex30(arr, queries) {
+    let answer = arr
+    queries.forEach((query)=> {
+        answer = arr.map((val, idx)=> {
+            if(idx % query[2] === 0 && idx >= query[0] && idx <= query[1]) {
+                return answer[idx] + 1
+            }
+            return answer[idx]
+        })
+    })
+    return answer
+
+}
+
+// 리팩토링 , 아 누산기를 잊고있었다... 누산기능을 위해서 answer 를 따로 빼두었었는데... 굳이... 그럴필요가없었다 . reduce 를 사용하면 누산하는구나 하는게 한번에 와닿을듯...
+function ex30(arr, queries) {
+    // reduce의 누산기능을 통해 해결 acc, cur , 초기값은 arr 을 사용한다
+    return queries.reduce((answer, query) => {
+        // map 을 통해서 배열 각 원소에 연산을 할것,
+        return answer.map((val, idx) => {
+            // 조건식 , 좀 까다롭게 적혀있어서 좀 가볍게 할 수 있는 방법이 없을까 생각해보는것도 괜찮을듯... (변수로 빼는거 제외..)
+            if (idx % query[2] === 0 && idx >= query[0] && idx <= query[1]) {
+                // 조건에 해당하면 value 에 +1
+                return val + 1;
+            }
+            return val;
+        });
+    }, arr);
+}
+
+
 
