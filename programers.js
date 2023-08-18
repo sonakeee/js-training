@@ -453,3 +453,29 @@ function ex28(arr, queries) {
 }
 
 
+// 수열과 구간 쿼리 2
+function ex29(arr, queries) {
+    let answer = []
+    queries.forEach((ele)=> {
+        let b = arr.filter((val, idx) => ele[0] <= idx && ele[1] >= idx && ele[2] < val)
+
+        answer.push(Math.min(...b) === Infinity ? -1 : Math.min(...b))
+    })
+    return answer
+}
+// 그냥 진짜 되는대로 풀어버렸다 ...
+
+// 그럼 바로 리팩토링이지
+function ex29(arr, queries) {
+    // forEach 가 아닌 map 으로 2차원배열을 순회
+    return queries.map(query => {
+        // slice 를 통해서 잘라낸다는걸 명확히 ? , filter 를 통해서 낮은값의 val를 걸러냄
+        const filteredArr = arr.slice(query[0], query[1] + 1).filter(val => val > query[2]);
+        // 위에서도 인피니티를 쓸까 길이를 쓸까 고민했었는데... 흠...
+        return filteredArr.length > 0 ? Math.min(...filteredArr) : -1;
+    });
+}
+// 약간 아쉽긴한데 위에것보단 좀 나은것같다
+
+
+
