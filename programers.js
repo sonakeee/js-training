@@ -574,3 +574,13 @@ function ex34(arr) {
 
     return stack;
 }
+
+// 간단한 논리 연산
+function ex34(x1, x2, x3, x4) {
+    const a = x1 || x2
+    const b = x3 || x4
+    if (a && b) {
+        return true
+    }
+    return false
+}
