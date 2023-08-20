@@ -511,4 +511,66 @@ function ex30(arr, queries) {
 }
 
 
+// 배열 만들기 2
+function ex31(l, r) {
+    let a = []
+    for(let i = l; i <= r; i++) {
+        if (/^[05]+$/.test(String(i))) {
+            a.push(i)
+        }
+    }
+    return a.length === 0 ? [-1] : a
+}
 
+// 카운트 업
+function ex32(start, end) {
+    let a = []
+    for(let i = start; i <= end; i++) {
+        a.push(i)
+    }
+    return a
+}
+
+
+// 콜라츠 수열 만들기
+function ex33(n) {
+    let answer = []
+
+    while (true) {
+        answer.push(n)
+
+        if (n=== 1) {
+            break;
+        }
+
+        if(n % 2 === 0) {
+            n = n / 2
+        } else {
+            n = n * 3 + 1
+        }
+    }
+    return answer
+}
+// 그냥 딱 보자마자 이건 while 이다 생각이 들었다..
+
+
+// 배열 만들기 4
+// else if ... 불편... switch 로 하는게 나을까...? 생각 ...
+function ex34(arr) {
+    let stack = [];
+    let i = 0;
+
+    while (i < arr.length) {
+        if (stack.length === 0) {
+            stack.push(arr[i]);
+            i++;
+        } else if (stack[stack.length - 1] < arr[i]) {
+            stack.push(arr[i]);
+            i++;
+        } else {
+            stack.pop();
+        }
+    }
+
+    return stack;
+}
