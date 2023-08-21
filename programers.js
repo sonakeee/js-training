@@ -585,7 +585,8 @@ function ex35(x1, x2, x3, x4) {
     return false
 }
 
-// 어려움 나중에 다시풀기
+// 주사위 게임 3
+// 어려움 나중에 다시풀기 36
 
 
 
@@ -605,3 +606,57 @@ function ex38(number) {
     return Number(a) % 9
 }
 
+// 문자열 여러 번 뒤집기
+// 나중에 다시풀기 40
+
+
+// 배열 만들기 5
+function ex41(intStrs, k, s, l) {
+    let a = []
+    intStrs.map((ele)=> {
+        if (ele.substring(s, s+l) > k) {
+            a.push(Number(ele.substring(s, s+l)))
+        }
+    })
+    return a
+}
+
+// 부분 문자열 이어 붙여 문자열 만들기
+function ex42(my_strings, parts) {
+    let a = ''
+    for(let i = 0; i < parts.length; i++) {
+        a += my_strings[i].slice(parts[i][0], parts[i][1]+1)
+        
+    }
+    return a
+}
+
+// 문자열의 뒤의 n글자
+function ex43(my_string, n) {
+    let a = [...my_string].reverse().slice(0, n).reverse().join('')
+    return a
+}
+
+// 접미사 배열
+function ex44(my_string) {
+    let a = [...my_string].reverse()
+    let b = []
+    for(let i = 1; i <= my_string.length; i++) {
+        b.push(a.slice(0, i).reverse().join(''))
+    }
+    return b.sort()
+}
+
+
+// 접미사인지 확인하기
+function ex45(my_string, is_suffix) {
+    let a = [...my_string].reverse()
+    let b = []
+    for(let i = 1; i <= my_string.length; i++) {
+        b.push(a.slice(0, i).reverse().join(''))
+    }
+    if(b.includes(is_suffix)) {
+        return 1
+    }
+    return 0
+}
