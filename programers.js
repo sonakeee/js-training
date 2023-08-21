@@ -660,3 +660,36 @@ function ex45(my_string, is_suffix) {
     }
     return 0
 }
+
+// 접두사인지 확인하기
+function ex46(my_string, is_prefix) {
+    let a = [...my_string]
+    let b = []
+    for(let i = 1; i <= my_string.length; i++) {
+        b.push(a.slice(0, i).join(''))
+    }
+    if(b.includes(is_prefix)) {
+        return 1
+    }
+    return 0
+}
+
+
+// 문자열 뒤집기 
+function ex47(my_string, s, e) {
+    let q = [...my_string]
+    let a = q.slice(s, e+1).reverse().join('')
+    q.splice(s, a.length, a )
+    
+    return q.join('')
+}
+
+// 세로 읽기
+function ex48(my_string, m, c) {
+    let arr = [...my_string]
+    let a = ''
+    for(let i = 0; i < my_string.length/m; i++) {
+        a += arr.splice(0, m)[c-1]
+    }
+    return a
+}
