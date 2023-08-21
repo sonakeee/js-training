@@ -584,3 +584,24 @@ function ex35(x1, x2, x3, x4) {
     }
     return false
 }
+
+// 어려움 나중에 다시풀기
+
+
+
+
+// 글자 이어 붙여 문자열 만들기
+function ex37(my_string, index_list) {
+    let a = ''
+    for(let i of index_list) {
+        a += my_string[i]
+    }
+    return a
+}
+
+// 9로 나눈 나머지
+function ex38(number) {
+    let a = [...number].reduce((acc, cur) => Number(acc) + Number(cur))
+    return Number(a) % 9
+}
+
