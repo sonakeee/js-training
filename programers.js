@@ -693,3 +693,36 @@ function ex48(my_string, m, c) {
     }
     return a
 }
+
+// qr code
+function ex49(q, r, code) {
+    let a = [...code]
+    let b = ''
+    a.map((ele, idx)=> {
+        if (idx%q === r) {
+            b += ele
+        }
+    })
+    
+    return b
+}
+
+
+// 문자 개수 세기
+function ex50(my_string) {
+    let a = [...my_string]
+    let b = []
+    for(let i=0; i < 52; i++) {
+        b.push(0)
+    }
+    
+    a.map((ele)=> {
+        let c = ele.charCodeAt()
+        if ( 64 < c && c < 91 ) {
+            b[ele.charCodeAt() - 65] += 1
+        } else if (96 < c && c < 123) {
+            b[ele.charCodeAt() - 71] += 1
+        }
+    })
+    return b
+}
