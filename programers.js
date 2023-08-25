@@ -711,18 +711,98 @@ function ex49(q, r, code) {
 // 문자 개수 세기
 function ex50(my_string) {
     let a = [...my_string]
-    let b = []
-    for(let i=0; i < 52; i++) {
-        b.push(0)
-    }
+    const b = Array(52).fill(0);
+    
     
     a.map((ele)=> {
-        let c = ele.charCodeAt()
+        const c = ele.charCodeAt()
         if ( 64 < c && c < 91 ) {
-            b[ele.charCodeAt() - 65] += 1
+            b[c - 65] += 1
         } else if (96 < c && c < 123) {
-            b[ele.charCodeAt() - 71] += 1
+            b[c - 71] += 1
         }
     })
     return b
+}
+
+// 배열 만들기 1
+function ex51(n, k) {
+    let a = []
+    for(let i =1; i <= n; i++) {
+        if(i%k === 0) {
+            a.push(i)
+        }
+    }
+    return a
+} 
+
+// 글자 지우기
+function ex52(my_string, indices) {
+    let a = [...my_string]
+    indices.slice().sort((a, b) => a - b).reverse().map((ele)=> {
+        a.splice(ele, 1)
+    })
+    return a.join('')
+    
+}
+
+
+// 카운트 다운
+function ex53(start, end_num) {
+    let a = [ ]
+    for(let i = start; i >= end_num; i-- ) {
+        a.push(i)
+    }
+    return a
+}
+
+// 가까운 1 찾기 
+function ex54(arr, idx) {
+    let a = -1
+     for (let i = idx; i < arr.length; i++) {
+        if (arr[i] === 1) {
+            a = i;
+            break; // 순회 중단
+        }
+    }
+    
+    return a
+}
+
+
+// 리스트 자르기
+function ex55(n, slicer, num_list) {
+    switch (n) {
+        case 1:
+            return num_list.splice(0, slicer[1]+1)
+        case 2:
+            return num_list.slice(slicer[0])            
+        case 3:
+            return num_list.slice(slicer[0], slicer[1]+1)
+        case 4:
+            return num_list.slice(slicer[0], slicer[1]+1).filter((ele, idx) => idx % slicer[2] === 0);
+    }
+}
+
+// 첫 번째로 나오는 음수
+function ex56(arr, idx) {
+    let a = -1;
+
+    for( let i = 0; i < arr.length; i++) {
+        if(arr[i] < 0 ) {
+            a = i
+            break;
+        }
+    }
+
+    return a;
+}
+
+// 배열 만들기 3
+function ex57(arr, intervals) {
+    let a = []
+    intervals.forEach((ele) => {
+        a.push(...arr.slice(ele[0], ele[1]+1))
+    })
+    return a
 }
