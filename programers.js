@@ -806,3 +806,195 @@ function ex57(arr, intervals) {
     })
     return a
 }
+
+// 2의 영역
+// 오래간만에 진짜진짜 맘에안드는 코드가 나와버렸다 
+
+function ex58(arr) {
+    let idxBox = []
+    arr.map((ele, idx) => {
+        if(ele === 2) {
+            idxBox.push(idx)
+        }
+    })
+    
+    if (idxBox.length > 0) {
+        return arr.slice(idxBox[0], idxBox[idxBox.length-1]+1 ?? null )    
+    } else {
+        return [-1]
+    }
+         
+}
+
+
+// 일단 gpt 한테 요청한 리팩토링 
+function ex58(arr) {
+    const idxBox = [];
+    
+    arr.forEach((ele, idx) => {
+        if (ele === 2) {
+            idxBox.push(idx);
+        }
+    });
+    
+    if (idxBox.length > 0) {
+        const [startIdx, endIdx] = [idxBox[0], idxBox[idxBox.length - 1]];
+        return arr.slice(startIdx, endIdx + 1);
+    } else {
+        return [-1];
+    }
+}
+// 맘에안드는건 마찬가지긴한데,, 음 그래도 구조분해할당 한건 좀 깔끔하긴 한듯.. 가독성이 올라감
+
+// 아 그리고 forEach는 return 하는것이 없고 map 은 return 이 있다는것이 가장 큰 차이점이라는데 앞으론 좀 유의하면서 사용해야겠다. 
+// 근데 사실 저 코드엔 리턴을 넣어줘도... 넣어주지않아도 괜찮지 않나... ? 
+// 관련해서 검색을 좀 해봤는데 
+// 변경 사항이 반영된 새 배열의 리턴이 필요한가에 대한 이야기였다, 근데 사실 나는 빈 배열을 미리 선언함으로써 굳이 리턴이 필요한가? 라는 의문... 가독성적인 부분?
+// map 함수는 원본 함수를 변경하지않으니 이러한 방식을 생각했는데 흠 ... 약간 조금 더 찾아봐야겠다 
+
+
+function test(arr) {
+
+    /** 이런식으로 리턴을 할 수 있지만 명시적으로 undefined가 들어가게 된다..
+     *   map 은 반환값을 항상 가지기 떄문에 map 안에 if 가 들어가서  쓸모없는 값들을 걸러내야한다면 적합한 선택이 아닌것같다. 
+     * 이런 상황에서 index 가 아닌 요소를 얻는다면 filter를 사용할 수 있었을텐데... 하는 아쉬움 
+    */  
+
+
+    // 빈 배열을 선언하는것이 아니라 바로 변수할당
+    const idxBox = arr.map((ele)=> {
+        if (ele === 2) {
+            // 이 부분 또한 간결해지게 되었다. 
+            return idx
+        }
+        return;
+    })
+
+    // 결국 이 문제에서는  forEach 가 더욱 간결하게 사용될 수 있을거라고 생각하게 되었다 . 
+    const idxBox2 = [];
+    
+    arr.forEach((ele, idx) => {
+        if (ele === 2) {
+            idxBox2.push(idx);
+        }
+    });
+}
+// 배열의 모든 값을 순회할떄는 map 과 forEach중에 어떤 선택을 해야할까 고민한적이 꽤 있었는데 이번에 조금 더 적합하게 사용가능하게 될것같다. 
+// 맵을 상당히 잘못쓰고있었다... 
+
+
+// https://emewjin.github.io/array-map/#-map%EC%97%90%EC%84%9C-%ED%99%94%EC%82%B4%ED%91%9C-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%93%B0%EB%8A%94-%EC%9D%B4%EC%9C%A0
+// 보다가 정리가 잘 되어있어 일단 저장. 
+
+
+// 배열 조각하기
+function ex59(arr, query) {
+    query.forEach((ele,idx) => {
+        if (idx % 2 === 0) {
+            arr.splice(ele + 1)
+        } else {
+            arr.splice(0, ele)        
+        }
+    })
+    return arr
+}
+
+// 이런식으로도 가능 , 좀 return 이 많긴하다..... 
+// 위의 forEach에서는 return 을 사용하거나 else 문을 사용해야하는데 , return 을 사용한다면 forEach말고 map으로도 할수 있지않을까 하는 생각에 map으로 만들었다 
+// 근데 조금 리턴이 많아보인다는 생각이 들긴하는데 ... 
+// 프로그래머스 성능상으로는 이게 좀 더 나은 성능을 보여준다
+function ex59(arr, query) {
+    
+    query.map((ele,idx) => {
+        if (idx % 2 === 0) {
+            return arr.splice(ele + 1)
+        } 
+            return arr.splice(0, ele)        
+    })
+    return arr
+}
+
+// n 번째 원소부터
+function ex60(num_list, n) {
+    return num_list.slice(n-1)
+}
+
+// 순서 바꾸기 
+// 솔직히 좀 가독성 낮추면... 
+function ex61(num_list, n) {
+    const end = num_list.slice(0, n)
+    const start = num_list.slice(n)
+    return [...start, ...end]
+}
+
+// 이런것도 안될건 없지만... 
+function ex61(num_list, n) {
+    return [...num_list.slice(n), ...num_list.slice(0, n)]
+}
+
+// 왼쪽 오른쪽
+function ex62(str_list) {
+    let a = []
+    for(let i = 0; i < str_list.length; i++) {
+        if (str_list[i] === 'l') {
+            a = str_list.slice(0, i)
+            break;
+        } else if (str_list[i] === 'r') {
+            a = str_list.slice(i+1)
+            break;
+        }
+    }
+    return a
+    
+}
+
+
+// n 번째 원소까지
+function ex63(num_list, n) {
+    return num_list.slice(0, n)
+}
+
+// n개 간격의 원소들
+function ex64(num_list, n) {
+    let a = []
+    for (let i = 0; i < num_list.length; i+=n) {
+        a.push(num_list[i])
+    }
+    return a
+}
+
+
+// 홀수 vs 짝수
+function ex65(num_list) {
+    let a = 0 
+    let b = 0
+    num_list.map((ele, idx) => {
+        if (idx % 2 === 0) {
+           return a += ele 
+        }
+        return b += ele
+    })
+    if (a>b) {
+        return a
+    }
+    return b
+}
+// 역시나 맘에들지않음 , 초기값 설정도 그렇고 , return 너무 남발함 적합한가 싶은 map 사용 등 
+
+
+// 완전 처음에 구조분해할당을 사용해볼까 했었는데 이러한 방법도 있었다 ,,, reduce의 새로운 사용방법도 있었음 
+function ex65(num_list) {
+    // 누산기를 a와 b로 나누는건 생각도못했는데 이러한 방식도 있었다... 
+    const [a, b] = num_list.reduce(([accA, accB], ele, idx) => {
+        if (idx % 2 === 0) {
+            // acc B 에는 아무것도 더하지않고 그냥 넘겨줌 
+            return [accA + ele, accB];
+        } else {
+            return [accA, accB + ele];
+        }
+        // 초기값은 0 으로 
+    }, [0, 0]);
+
+    // 더 큰 값을 찾는것 
+    return Math.max(a, b);
+}
