@@ -1028,3 +1028,39 @@ function ex67(todo_list, finished) {
     })
     return b
 }
+
+// n보다 커질 때까지 더하기
+function ex68(numbers, n) {
+    return numbers.reduce((acc, cur) => {
+        if (acc > n) {
+            return acc
+        }
+        return acc + cur
+    })
+}
+
+
+//수열과 구간 쿼리 1
+function ex69(arr, queries) {
+    let a = arr
+    queries.forEach((ele)=> {
+        a = a.map((val, idx)=> {
+            if ( ele[0] <= idx && idx <= ele[1]) {
+                return val += 1
+            } else {
+                return val
+            }
+        })
+    })
+    return a
+}
+
+
+function ex69(arr, queries) {
+    queries.forEach((ele) => {
+        for (let i = ele[0]; i <= ele[1]; i++) {
+            arr[i] += 1;
+        }
+    });
+    return arr;
+}
