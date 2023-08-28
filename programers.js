@@ -998,3 +998,33 @@ function ex65(num_list) {
     // 더 큰 값을 찾는것 
     return Math.max(a, b);
 }
+
+// 5명씩
+function ex66(names) {
+    let a = []
+    names.map((ele, idx)=> {
+        if(idx%5 === 0) {
+            a.push(ele)
+        }
+    })
+    return a
+}
+
+
+// 할 일 목록
+function ex67(todo_list, finished) {
+    let a = []
+        
+    finished.forEach((ele, idx) => {
+        if(ele === false) {
+            a.push(idx)
+        }
+    })
+    let b = []
+    todo_list.map((ele, idx)=> {
+        if(a.includes(idx)) {
+            b.push(ele)
+        }
+    })
+    return b
+}
