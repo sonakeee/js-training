@@ -1055,7 +1055,18 @@ function ex69(arr, queries) {
     return a
 }
 
+// 리팩토링 리스트
+function ex69(arr, queries) {
+    // 항상 두개의쌍을 가지기때문에 이런식으로 구조분해할당을 가능하겠구나...
+    for (const [s, e] of queries) {
+        for (let i = s; i <= e; i++) {
+            arr[i] += 1;
+        }
+    }
+    return arr;
+}
 
+// 성능적으로는 괜찮은데,,
 function ex69(arr, queries) {
     queries.forEach((ele) => {
         for (let i = ele[0]; i <= ele[1]; i++) {
@@ -1064,3 +1075,17 @@ function ex69(arr, queries) {
     });
     return arr;
 }
+
+
+//  조건에 맞게 수열 변환하기 1
+function ex70(arr) {
+    return arr.map((ele)=> {
+        if (ele < 50 && ele % 2 === 1) {
+            return ele * 2
+        } else if (ele >= 50 && ele % 2 ===0) {
+            return ele / 2
+        }
+        return ele
+    })
+}
+
