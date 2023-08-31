@@ -1089,3 +1089,151 @@ function ex70(arr) {
     })
 }
 
+// 조건에 맞게 수열 변환하기 2
+
+
+// 길이에 따른 연산 
+function ex73(num_list) {
+    if(num_list.length > 10) {
+        return num_list.reduce((acc, cur) => {
+            return acc + cur
+        })
+    } 
+    return num_list.reduce((acc, cur) => {
+            return acc * cur
+    })
+}
+
+// 원하는 문자열 찾기 
+function ex74(myString, pat) {
+    if (myString.toLowerCase().includes(pat.toLowerCase())) {
+        return 1
+    }
+    return 0
+}
+
+// 대문자로 바꾸기
+function ex75(myString) {
+    return myString.toUpperCase()
+}
+
+// 소문자로 바꾸기 
+function ex76(myString) {
+    return myString.toLowerCase()
+}
+
+
+// 배열에서 문자열 대소문자 변환하기
+function ex77(strArr) {
+    return strArr.map((ele, idx) => {
+        if ( idx % 2 === 0) {
+            return ele.toLowerCase()
+        }
+        return ele.toUpperCase()
+    })
+}
+
+// A 강조하기
+function ex78(myString) {
+    return [...myString].map((ele) => {
+        if(ele === 'a' || ele === 'A') {
+            return ele.toUpperCase()
+        }
+        return ele.toLowerCase()
+    }).join('')
+}
+
+// 특정한 문자를 대문자로 바꾸기
+function ex79(my_string, alp) {
+    return [...my_string].map((ele)=> {
+        if(ele === alp) {
+            return ele.toUpperCase()
+        }
+        return ele
+    }).join('')
+}
+
+
+//	특정 문자열로 끝나는 가장 긴 부분 문자열 찾기
+function ex80(myString, pat) {
+    let a = []
+    for (let i = 0; i < myString.length; i++ ) {
+        // pat의 길이에 맞게 자르기
+        const slice = myString.slice(i, i+pat.length)        
+        
+        if (slice === pat) {
+            a = myString.slice(0, i+pat.length)
+        }
+        
+    }
+    return a
+} 
+
+
+// 문자열이 몇 번 등장하는지 세기
+function ex81(myString, pat) {
+    let a = 0
+    const patLeng = pat.length
+
+    for(let i = 0; i <= myString.length-patLeng; i++) {
+        const target =  myString.slice(i, i+patLeng)
+        console.log(i, target) 
+        if (target === pat) {
+            a += 1
+        }
+    }
+    return a
+}
+
+// ad 제거하기
+function ex82(strArr) {
+    let a = [] 
+    strArr.forEach((ele)=> {
+        if (!ele.includes('ad')) {
+            a.push(ele) 
+        }
+    })
+    return a
+}
+
+// 공백으로 구분하기 1
+function ex83(my_string) {
+    return my_string.split(' ')
+}
+
+//공백으로 구분하기 2
+function ex84(my_string) {
+    let a = []
+    my_string.split(' ').forEach((ele)=> {
+        if (ele !== '') {
+            a.push(ele)
+        }
+    })
+    return a
+}
+
+// x 사이의 개수
+function ex85(myString) {
+    return myString.split('x').map((ele)=> {
+        return ele.length        
+    })
+}
+
+// 문자열 잘라서 정렬하기
+function ex86(myString) {
+    let a = []
+    myString.split('x').sort().forEach((ele)=> {
+        if (ele !== '') {
+            a.push(ele)
+        }
+    })
+    return a
+}
+
+// 리팩토링한 코드 
+function ex86(myString) {
+    // 맵이아닌 필터로 빈 문자열 걸러내기... 이게 훨씬 더 사용성에 맞는것같다. 
+    return myString.split('x').filter(Boolean).sort();
+}
+
+// 간단한 식 계산하기
