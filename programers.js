@@ -1237,3 +1237,50 @@ function ex86(myString) {
 }
 
 // 간단한 식 계산하기
+function ex87(binomial) {
+    let [a, op, b]  = binomial.split(' ')
+    const num_a = Number(a)
+    const num_b = Number(b)
+    switch (op) {
+        case '+':
+            return num_a + num_b
+        case '-':
+            return num_a - num_b
+        case '*':
+            return num_a * num_b
+    }
+}
+
+
+// 문자열 바꿔서 찾기
+function ex88(myString, pat) {
+    let a = [...myString].map((ele)=> {
+        if(ele === 'A') {
+            return 'B'
+        }
+        return 'A'
+    })
+    
+    if ( a.join('').includes(pat) ){
+        return 1
+    }
+    return 0
+}
+
+
+// rny_string
+function ex89(rny_string) {
+    let a  = [...rny_string].map((ele) => {
+        if (ele === 'm') {
+            return 'rn'
+        }
+        return ele
+    })
+    return a.join('')
+}
+
+// 세 개의 구분자 
+function ex90(myStr) {
+    const resultArray = myStr.split(/[abc]/).filter(Boolean);
+    return resultArray.length === 0 ? ["EMPTY"] : resultArray;
+}
