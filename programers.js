@@ -1281,6 +1281,120 @@ function ex89(rny_string) {
 
 // 세 개의 구분자 
 function ex90(myStr) {
+    // abc를 한번에 split 해버리기 그리고 필터로 여백 제거
     const resultArray = myStr.split(/[abc]/).filter(Boolean);
     return resultArray.length === 0 ? ["EMPTY"] : resultArray;
 }
+
+
+
+// 배열의 원소만큼 추가하기
+function ex91(arr) {
+    let a = []
+    arr.forEach((ele)=> {
+        for(let i =0; i< ele; i++) {
+            a.push(ele)
+        }
+    })
+    return a
+}
+
+// 리팩토링
+function ex91(arr) {
+    // 두번째 파라미터는 매핑 함수 ele크기의 Array 를 만든 후 그 안을 ele 값으로fill 채워준다음 flat 으로 2차원인걸 풀어줌
+    return Array.from(arr, ele => Array(ele).fill(ele)).flat();
+}
+
+function ex91(arr) {
+    // reduce ..에 concat 을 써서 누산기를 사용한다...? 처음보는 방식이고 생각도 못했는데 좋은 방법이다.. 익혀둬야겠다
+    // acc 에 지속적으로 Array.fill (이부분은 위와 같다) 를 추가해줘서 완성 ... 솔직히 이게 제일 맘에 듦...
+    return arr.reduce((acc, ele) => acc.concat(Array(ele).fill(ele)), []);
+}
+
+//빈 배열에 추가, 삭제하기
+function ex92(arr, flag) {
+    let x = []
+    flag.forEach((ele, idx)=> {
+        if(ele) {
+            for(let i = 0; i < arr[idx]*2; i++) {
+                x.push(arr[idx])
+            }
+        } else {
+            x.splice(x.length-arr[idx], arr[idx])
+        }
+    })
+    return x
+}
+
+// 리팩토링 한 코드
+function ex92(arr, flag) {
+    const result = [];
+
+    flag.forEach((ele, idx) => {
+        if (ele) {
+            // for문을 사용하지않고 스프레드연산자, Array를 통해서 넣어야 하는 횟수를 조정하고 , fill 로 value를 채워줌
+            result.push(...Array(arr[idx] * 2).fill(arr[idx]));
+        } else {
+            result.splice(result.length - arr[idx], arr[idx]);
+        }
+    });
+
+    return result;
+}
+
+
+// 배열 만들기 6
+function ex93(arr) {
+    const stack = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (stack.length === 0 || stack[stack.length - 1] !== arr[i]) {
+            stack.push(arr[i]);
+        } else {
+            stack.pop();
+        }
+    }
+
+    return stack.length === 0 ? [-1] : stack;
+}
+
+
+// 무작위로 K개의 수 뽑기
+function ex94(arr, k) {
+    // set ,  오랜만에 들어봄... set을 통해서 array안의 값이 중복되지않게함
+    // 중복된 값들을 제거하기위한 방법.
+    // Array.from() 은 순회가능한 이터러블 객체를 배열로 변환함, set은 이터러블 내장 객체,
+    // new Set(arr) , 배열 arr에서 중복된 값을 제거하고 set 객체로 생성
+    // Array.from() 으로 객체를 배열로 변환.
+    const uniqueElements = Array.from(new Set(arr));
+
+    // set 안의 개수를 k개로만 유지시키기 위해서 한번 걸러냄
+    const result = uniqueElements.slice(0, k);
+
+    // 만약 개수가 모자라다면 -1을 채워주기위해 while문 사용
+    while (result.length < k) {
+        result.push(-1);
+    }
+
+    return result;
+}
+// 음 원래 풀었던 코드는 for문을 통해서 돌렸었는데 set이라는 자료구조를 아예 염두조차 안했었다...
+// 근데 다행이 gpt한테 리팩토링 맡기니까 잘 수정해줘서 이런 상황에서 set을 쓸 수 있구나 하는걸 배웠다..
+
+
+// 배열의 길이를 2의 거듭제곱으로 만들기
+function ex95(arr) {
+    let number = 1;
+    while (number < arr.length) {
+        number *= 2;
+    }
+
+    const endPoint = number - arr.length;
+    for (let i = 0; i < endPoint; i++) {
+        arr.push(0);
+    }
+
+    return arr;
+}
+
+
