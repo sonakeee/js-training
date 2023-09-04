@@ -1301,6 +1301,7 @@ function ex91(arr) {
 
 // 리팩토링
 function ex91(arr) {
+    // Array.from(유사배열 객체들을 배열형태로,
     // 두번째 파라미터는 매핑 함수 ele크기의 Array 를 만든 후 그 안을 ele 값으로fill 채워준다음 flat 으로 2차원인걸 풀어줌
     return Array.from(arr, ele => Array(ele).fill(ele)).flat();
 }
@@ -1385,11 +1386,13 @@ function ex94(arr, k) {
 // 배열의 길이를 2의 거듭제곱으로 만들기
 function ex95(arr) {
     let number = 1;
+    // 거듭제곱으로 가장 가까운 거듭제곱 값을 구함
     while (number < arr.length) {
         number *= 2;
     }
 
     const endPoint = number - arr.length;
+    // 그 숫자만큼 0 을 집어넣음
     for (let i = 0; i < endPoint; i++) {
         arr.push(0);
     }
@@ -1397,4 +1400,161 @@ function ex95(arr) {
     return arr;
 }
 
+
+// 배열 비교하기
+function ex96(arr1, arr2) {
+    let a = 0
+    const firstValue = arr1.reduce((acc, cur) => acc + cur)
+    const secondValue = arr2.reduce((acc, cur) => acc + cur)
+
+    switch (true) {
+        case arr1.length > arr2.length:
+            a = 1
+            break;
+        case arr1.length < arr2.length:
+            a = -1
+            break;
+        default:
+            if (firstValue > secondValue) {
+                a = 1
+            } else if (firstValue < secondValue) {
+                a = -1
+            } else {
+                a = 0
+            }
+            break;
+    }
+    return a
+}
+// 가장 간단하게 만든건데 세상에서 제일 개떡같다 . 수정해야겠다
+function ex96(arr1, arr2) {
+    const firstValue = arr1.reduce((acc, cur) => acc + cur);
+    const secondValue = arr2.reduce((acc, cur) => acc + cur);
+
+    function check(first, second, firstCondition, secondCondition) {
+        switch (true) {
+            case firstCondition:
+                return 1;
+            case secondCondition:
+                return -1;
+            default:
+                return 0;
+        }
+    }
+    const firstAnswer = check(arr1.length, arr2.length, arr1.length > arr2.length, arr1.length < arr2.length)
+    const secondAnswer = check(firstValue, secondValue, firstValue > secondValue , firstValue < secondValue)
+    if ( firstAnswer === 0) {
+        return secondAnswer
+    }
+
+    return firstAnswer
+}
+// 흠.. 나는 이게 조금 더 나은것같기도한데  괜히 일만 더 크게 벌린것같기도하고... 흐음.....좀 ... 그렇다 ... 애매하다 ..
+
+
+
+// 문자열 묶기
+function ex96(strArr) {
+    // 일단 문자열 길이를 배열로 뽑아낸다
+    let a = strArr.map((ele)=> {
+        return ele.length
+    })
+
+
+    function findCount(arr) {
+        // 배열을 정렬
+        arr.sort((a, b) => a - b);
+
+        let maxCount = 0;
+        let currentCount = 1;
+
+        // 문자열 순회
+        arr.forEach((ele, idx)=> {
+            // 현재 값과 이전 값이 같으면 카운터를 1올려주는것을 반복
+            if (arr[idx] === arr[idx - 1]) {
+                currentCount++;
+            } else {
+                // 현재값과 이전값이 다르게되면 초기화 시켜준다
+                currentCount = 1;
+            }
+
+            // 계속 올려온 값이 maxCount (현재까지 가장 크게 카운트를 쌓아올린 값) 보다 크면 maxCount 를 변경해준다
+            if (currentCount > maxCount) {
+                maxCount = currentCount;
+            }
+        })
+
+        // 마지막으로 가장 큰 값을 리턴함.
+        return maxCount;
+    }
+
+    return findCount(a)
+}
+
+// 배열의 길이에 따라 다른 연산하기
+function ex97(arr, n) {
+    const arrLeng = arr.length
+
+    if (arrLeng % 2 === 0) {
+        return arr.map((ele, idx)=> {
+            if(idx % 2 !== 0) {
+                return ele+n
+            }
+            return ele
+        })
+    }
+
+    return arr.map((ele, idx)=> {
+        if(idx % 2 === 0) {
+            return ele + n
+        }
+        return ele
+    })
+}
+// 흠... 이거 리팩토링 할 수 있을것같은데...
+
+
+/** 음 iterate 함수만 만들어서 하려고했었는데 안의 condition 을 파라미터로 넣자니 정말 애매한 상황이 나왔었다.
+ *  그리고 if 문은 그대로 외부에 빠져나와있었고...
+ *
+ * */
+function ex97(arr, n) {
+    const arrLeng = arr.length
+
+    function condition(idx) {
+        if (arrLeng % 2 === 0) {
+            return idx % 2 !== 0
+        }
+        return idx % 2 === 0
+    }
+
+
+    function iterate(array) {
+        return array.map((ele, idx) => {
+            // 단순하게 arr 의 길이에 따라 홀수 idx 에 n 을 더할지 , 짝수 idx 에 n 을 더할지 구분할 수 있는 함수가 되었다
+            if (condition(idx)) {
+                return ele + n;
+            }
+            return ele;
+        });
+    }
+
+    return iterate(arr);
+}
+// 근데 음.. 의존성이 좀 생겨서 불편하지않을까?... 이런생각이 들었다 이정도 수준까진 그래도 ok 일것같은데 ....이런식으로 함수가 좀만 많아져도....
+
+// 뒤에서 5등까지
+function ex98(num_list) {
+    return num_list.sort(function(a, b)  {
+        return a - b;
+    }).splice(0,5)
+}
+
+
+//뒤에서 5등 위로
+function ex99(num_list) {
+    return num_list.sort(function(a, b)  {
+        return a - b;
+    }).slice(5, num_list.length)
+}
 
