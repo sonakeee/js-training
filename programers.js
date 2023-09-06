@@ -1558,3 +1558,289 @@ function ex99(num_list) {
     }).slice(5, num_list.length)
 }
 
+// 전국 대회 선발 고사
+// 진짜 완전 개떡같다 ... 그래도 2중 for문은 피했지만...  하아.... 한숨...
+function ex100(rank, attendance) {
+
+    // attendance에서 True로 적힌 index 값을 뽑음
+    let trueIndex = []
+    attendance.forEach((ele, idx)=> {
+        if (ele) {
+            trueIndex.push(idx)
+        }
+    })
+
+    // trueIndex 로 어떤 학생들이 참여가 가능한지 확인함
+    let studentNumber = []
+    trueIndex.forEach((ele) => {
+        studentNumber.push(rank[ele])
+    })
+
+    // 참여가 가능한 학생중 위세서 3명만 남김
+    let topStudent = studentNumber.sort(function(a,b) {
+        return a-b
+    }).slice(0,3)
+
+    // 그 학생들의 index 값을 찾음
+    let topStudentIndex = []
+    topStudent.forEach((value)=> {
+        rank.forEach((ele, idx) => {
+            if (value === ele) {
+                topStudentIndex.push(idx)
+            }
+        })
+    })
+
+    // 연산
+    return 10000 * topStudentIndex[0] + 100 * topStudentIndex[1] + topStudentIndex[2]
+}
+
+// 정수 부분
+function ex101(flo) {
+    return Math.floor(flo)
+}
+
+// 문자열 정수의 합
+function ex102(num_str) {
+    return [...num_str].reduce((cur, acc)=> {
+        return Number(cur) + Number(acc)
+    })
+}
+
+// 문자열을 정수로 변환하기
+function ex102(n_str) {
+    return Number(n_str)
+}
+
+
+// 0 빼기
+function ex103(n_str) {
+    let a = []
+
+    let arr = [...n_str]
+    // 0 이 몇번째 index 에서 나오는지 확인
+    arr.forEach((ele,idx) => {
+        if ( ele > 0 ) {
+            a.push(idx)
+        }
+    })
+
+    let point = a[0]-1
+
+    let answer = []
+
+    // point index 밑의 수는 모두 0이므로 그 이후의 숫자들만 answer에 집어넣음
+    arr.forEach((ele, idx)=> {
+        if (idx > point) {
+            answer.push(ele)
+        }
+    })
+
+    // 스트링으로 변환
+    return answer.join('')
+}
+// 아 근데 마음에들진않는다...
+
+function ex103(n_str) {
+    // forEach 보다 훨씬 직관적이고 적합한 함수사용..
+    // 예에에에에전에 잠깐 보고 넘어갔던 함수인데... 이런경우에 써야겠다...
+    // 내가 설정한 조건에 해당하는 가장 첫번째 index 를 리턴함.
+    const findIndex = [...n_str].findIndex((char) => char !== '0')
+
+    return  n_str.slice(findIndex)
+}
+
+// 두 수의 합
+function ex104(a, b) {
+    return String(BigInt(a) + BigInt(b))
+}
+
+// 문자열로 변환
+function ex105(n) {
+    return String(n);
+}
+
+// 배열의 원소 삭제하기
+function ex106(arr, delete_list) {
+    let a = []
+    arr.forEach((ele,idx) => {
+        if(!delete_list.includes(ele)) {
+            a.push(ele)
+        }
+    })
+    return a
+}
+
+// 부분 문자열인지 확인하기
+// 파이썬에서 이런 방식으로 풀려있길래 해봤더니 되었다..
+function ex107(my_string, target) {
+    return my_string.includes(target) ? 1 : 0
+}
+
+// 부분 문자열
+function ex108(str1, str2) {
+    return str2.includes(str1) ? 1 : 0
+}
+
+// 꼬리 문자열
+function ex109(str_list, ex) {
+    let a = []
+    str_list.forEach((ele)=> {
+        if(!ele.includes(ex)) {
+            a.push(ele)
+        }
+    })
+
+    return a.join('')
+}
+
+
+// 정수 찾기
+function ex109(num_list, n) {
+    return num_list.includes(n) ? 1 : 0
+}
+
+// 주사위 게임 1
+function ex110(a, b) {
+    if ( a % 2 === 0 && b % 2 === 0) {
+        return Math.abs(a-b)
+    } else if (a % 2 === 1 && b % 2 === 1) {
+        return a*a + b*b
+    } else {
+        return 2*(a+b)
+    }
+}
+
+// 날짜 비교하기
+function ex111(date1, date2) {
+
+    let a = 0
+    for (let i =0; i < 3; i++) {
+        if(date1[i] > date2[i]) {
+            return a = 0
+        } else if (date1[i] < date2[i]){
+            return a = 1
+        } else {
+            continue;
+        }
+    }
+    return a
+}
+
+// 커피 심부름
+function ex112(order) {
+    let value = {
+        "iceamericano": 4500,
+        "americanoice": 4500,
+        "hotamericano": 4500,
+        "americanohot": 4500,
+        "icecafelatte": 5000,
+        "cafelatteice": 5000,
+        "hotcafelatte": 5000,
+        "cafelattehot": 5000,
+        "americano": 4500,
+        "cafelatte": 5000,
+        "anything": 4500
+    }
+    let a = 0
+    order.forEach((ele)=>{
+        a += value[ele]
+    })
+    return a
+}
+
+// 그림 확대
+function ex113(picture, k) {
+    let result = [];
+    picture.forEach((row) => {
+        let repeatRow = [...row].map((ele) => ele.repeat(k)).join('')
+        result.push(repeatRow);
+    });
+
+
+    let a = []
+    result.forEach((ele)=> {
+        for(let i = 0; i < k; i++) {
+            a.push(ele)
+        }
+    })
+    return a
+}
+
+// 조건에 맞게 수열 변환하기 3
+function ex114(arr, k) {
+    return arr.map((ele)=> {
+        if (k % 2 === 1) {
+            return ele * k
+        }
+        return ele + k
+    })
+}
+
+
+// l로 만들기
+function ex115(myString) {
+    return [...myString].map((ele)=> {
+        if (ele < 'l' ) {
+            return 'l'
+        }
+        return ele
+    }).join('')
+}
+
+// 특별한 이차원 배열 1
+function ex116(n) {
+    let a = []
+    for(let i =0; i<n; i++) {
+        a.push(Array(n).fill(0))
+    }
+
+    for(let j=0; j<n; j++) {
+        a[j][j] = 1
+    }
+    return a
+}
+
+// 정수를 나선형으로 배치하기
+// 어려워서 적당한 솔루션은 찾았지만 해설정도만 달고 다시하는걸로...
+function reject(n) {
+    // 2차원 배열 생성, 길이가 n 값이 0 , 위의 ex116에서 for문으로 구현한것과 유사한 방식
+    const answer = Array.from(Array(n), () => Array(n).fill(0))
+
+    // 움직임의 방향을 미리 제시함 이중 배열 안의 배열의 원소는 각각 x,y를 나타내며 [[y,x]~~] 꼴이라고 생각하면 될듯.
+    const move = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+
+    // x,y 의 초기값, 지정 , num은 배열안에 할당되어야할 값
+    // dir 은 move를 컨트롤 하는 요소로서 사용될것이고 0은 우측 1은 아래 , 2는 좌측, 3은 위를 나타냄 , 가야할 방향지표 핸들러로서 작용
+    let x = 0, y = 0, dir = 0, num = 1;
+
+    // num 이 n의 제곱수가 될 때 까지 반복
+    while(num <= n**2) {
+
+        // answer 배열안의 값 할당
+        answer[x][y] = num;
+
+        // 다음 위치값을 구하는 방식, 미리 지정해둔 move를 이용
+        let nextX = x + move[dir][0];
+        let nextY = y + move[dir][1];
+
+        // 값이 이미 할당된 경우, 배열을 벗어나는 경우 등을 제외하기 위한 if문
+        if (nextX >= n || nextX < 0 || nextY >= n || nextY < 0 || answer[nextX][nextY] !== 0) {
+            // 4방향이라 4의나머지
+            dir = (dir + 1) % 4;
+            // 값 변경
+            nextX = x + move[dir][0];
+            nextY = y + move[dir][1];
+        }
+
+        // 초기값 변경
+        x = nextX;
+        y = nextY;
+
+        num++;
+    }
+
+    return answer;
+}
+
+
