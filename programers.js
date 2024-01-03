@@ -1843,4 +1843,534 @@ function reject(n) {
     return answer;
 }
 
+// 특별한 이차원 배열 2
+function ex118(arr) {
+    let leng = arr[0].length
+    let a = []
 
+    for(let i=0; i<leng; i++) {
+        for(let j=0; j<leng; j++) {
+            a.push(arr[i][j] === arr[j][i])
+        }
+    }
+
+    return a.includes(false) ? 0 : 1
+}
+
+
+// 정사각형으로 만들기
+function ex119(arr) {
+    let row = arr[0].length
+    let col = arr.length
+    let value = Math.abs(row - col)
+
+    console.log(value)
+
+    if (row > col) {
+        for(let i=0; i<value;i++) {
+            arr.push(Array(row).fill(0))
+        }
+    } else if (row < col) {
+        for(let idx=0; idx<value; idx++) {
+            console.log(idx)
+            arr.forEach((ele, idx)=>{
+                ele.push(0)
+            })
+        }
+    }
+
+    return arr
+}
+
+// 이차원 배열 대각선 순회하기
+function ex120(board, k) {
+    const row = board.length;
+    const col = board[0].length;
+    let a = 0
+    for(let i=0; i<row; i++) {
+        for(let j =0;j<col; j++) {
+            if(i+j <= k) {
+                a += board[i][j]
+            }
+        }
+    }
+    return a
+}
+
+
+// 옹알이 (1)
+function ex121(babbling) {
+    let a = ["aya", "ye", "woo", "ma"]
+    let answer = 0
+    babbling.forEach((ele,idx)=>{
+        if(spliter(ele).trim() === '') {
+            answer += 1
+        }
+    })
+
+    function spliter(value) {
+        return value.replaceAll('aya', ' ').replaceAll('ye', ' ').replaceAll('woo', ' ').replaceAll('ma', ' ')
+    }
+
+    return answer
+}
+
+// 다음에 올 숫자
+function ex122(common) {
+    if(common[1] - common[0] === common[2] - common[1]) {
+        const a = common[1] - common[0]
+        return common[common.length-1] + a
+    }
+    const b = common[1] / common[0]
+    return common[common.length-1] * b
+}
+
+// 종이 자르기
+function ex123(M, N) {
+    return M * N - 1
+}
+
+
+// 문자열 밀기
+function ex124(A, B) {
+    return (B+B).indexOf(A);
+}
+// 처음엔 for문,,, slice , if 등을 사용해서 했었는데 ,, 다른사람 문제 풀이를 보고 이걿 해석하기로 했다.
+/** 파라미터 A 와 B 를 각각 'abc' 'bca' 라고 가정할 때
+ * bcabca 가 나오게 되고 , 여기서 처음으로 abc 가 등장하는 index 가 2이기때문에 2가 리턴,,,,
+ * */
+
+
+//잘라서 배열로 저장하기
+// 일단 언제적인지도 모를정도로 오래된 풀이 ㅋㅋㅋㅋ.... 그냥 for 문 조건보고 읽기도 싫었다
+// 아예 다 지워버리고 처음부터 풀이.
+function ex125(my_str, n) {
+    let a = my_str.split('')
+    let ans = []
+
+
+
+    for (let i = 1; i <= my_str.split('').length/n +1; i++) {
+        let cv = i * n;
+        ans.push(a.slice(n*(i-1),cv).join(''))
+    }
+    return ans.filter(e => e !== "")
+}
+
+// 리팩토링한 코드
+// 쓸데없는게 많이 줄었다..
+function ex125(my_str, n) {
+    let answer = [];
+
+    while (my_str.length > 0) {
+        // 문자열 필요한 부분 추출
+        let subStr = my_str.substring(0, n);
+        // 배열에 집어넣음
+        answer.push(subStr);
+        // 추출하고 남은 부분 문자열을 my_str 에 할당함
+        my_str = my_str.substring(n);
+    }
+
+    return answer;
+}
+
+// 7의 개수
+function ex126(array) {
+    let a = array.split('')
+    console.log(a)
+    let b = a.filter((ele) => ele === '7')
+    return b.length
+}
+
+// 문자열 정렬하기 (2)
+function ex127(my_string) {
+    return [...my_string.toLowerCase()].sort().join('')
+}
+
+
+// 세균 증식
+function ex128(n, t) {
+    for (let i = 0; i < t; i++) {
+        n *= 2;
+    }
+    return n;
+}
+
+//제곱수 판별하기
+function ex129(n) {
+    // Math.sqrt는 n 의 제곱근을 반환하는 메서드 ,
+    return Number.isInteger(Math.sqrt(n)) ? 1 : 2;
+}
+
+
+//문자열안에 문자열
+function ex130(str1, str2) {
+    return str1.includes(str2)  ? 1 : 2
+}
+
+
+// 자릿수 더하기
+function ex131(n) {
+    let a = String(n).split('')
+    let b = a.map((ele)=> {
+        return Number(ele)
+    })
+    return b.reduce((acc, cur) => acc + cur)
+}
+
+
+//n의 배수 고르기
+function ex132(n, numlist) {
+    return numlist.filter(v => v % n === 0)
+}
+
+// 영어가 싫어요
+function ex133(numbers) {
+    const change = {
+        zero: 0,
+        one: 1,
+        two: 2,
+        three: 3,
+        four: 4,
+        five: 5,
+        six: 6,
+        seven: 7,
+        eight: 8,
+        nine:9
+    }
+
+    let a = []
+    let b = []
+    numbers.split('').forEach((ele)=> {
+        a += ele
+        if(change[a] >= 0) {
+            b += change[a]
+            a = []
+        }
+
+    })
+    return Number(b)
+}
+
+
+// 리팩토링한 코드
+function ex133(numbers) {
+    const change = {
+        zero: 0, one: 1, two: 2, three: 3, four: 4,
+        five: 5, six: 6, seven: 7, eight: 8, nine: 9
+    }
+
+    let result = 0;
+    let currentNum = '';
+
+    // for of 문을 사용해서 numbers 를 순회 , 기존은 forEach로 했었다... split('')을 따로 사용하지않아도 됨.
+
+    for (const char of numbers) {
+        currentNum += char;
+        if (change[currentNum] !== undefined) {
+            // chatGpt 에서는 새로운 자릿수를 추가하기 위해 이러한 방식을 사용했다.
+            // 처음에는 이게 뭐야... 이상한데 ? 라는 생각을 했는데
+            // 나중에 배열을 순회할 필요가 없어서 오히려 숫자를 대상으로 하는 경우에는 성능적으로는 오히려 좋을것같다는생각이들었다.
+            // 하지만 코드를 읽는 사람 입장에서는 조금 ... 이게 뭐지 싶을수도 ...?
+            result = result * 10 + change[currentNum];
+            currentNum = '';
+        }
+    }
+
+    return result;
+}
+
+
+
+//연속된 수의 합
+// 진짜 개판으로 풀었다.... 이거 말이되나... 싶을정도로 막풀었는데.... 리팩토링 해야겠다...
+function ex134(num, total) {
+    let a = []
+    let answer = []
+
+    for(let i = total; i > -total; i--) {
+        a.push(i)
+    }
+    if (a.length === 0 ) {
+        for(let k = -num; k < num; k++) {
+            a.push(k)
+        }
+    }
+    for(let j = 0; j < a.length; j++) {
+
+        let b = a.slice(j, num+j)
+
+
+        if (total === b.reduce((a,b)=> a+b)) {
+            answer = b
+        }
+    }
+
+    return answer.sort(function(a,b) {
+        return a-b
+    })
+
+}
+
+
+// 한 번만 등장한 문자
+// 리팩토링 한거보니까 처음 푼 방식 진짜 골치아픔...
+function ex135(s) {
+    let answer = s.split('')
+    answer.sort()
+
+    let a = []
+    for(let i = 0; i < answer.length; i++) {
+        if(answer[i] === answer[i+1]) {
+            a.push(i)
+        }
+
+    }
+
+    let b = []
+    a.forEach((ele) => {
+        b.push(answer[ele])
+    })
+
+
+    let c = answer.filter((ele)=> {
+        return !b.includes(ele)
+    })
+
+    return c.join('')
+
+}
+
+function ex135(s) {
+    let res = [];
+    // for of 에 indexOf 로 안될까 생각은 했었는데 ,, lastIndexOf 를 생각못했다...
+    for (let c of s) {
+        // 각 문자열의 첫 index 값과 마지막 index값이 같다면 해당 문자열에는 그 문자가 하나밖에 없다는 뜻이 되므로
+        if (s.indexOf(c) === s.lastIndexOf(c)) {
+            // 그것만 리턴해주면 됨...
+            res.push(c);
+        }
+    }
+    return res.sort().join('');
+
+}
+
+// 문자열 여러번 뒤집기
+function ex136(my_string, queries) {
+    return queries.reduce((acc, cur) => {
+        // 배열을 구조분해할당함
+        const [s, e] = cur;
+        // 내가 뒤집을 문자열을 떼옴
+        const target = acc.slice(s, e + 1);
+        // 문자열을 3등분함, 뒤집을 문자열의 앞 문자열 , 뒤집은 문자열 , 뒤집을 문자열의 뒷 문자열
+        // 문자열을 3등분하면서 내가 뒤집을 문자열 부분은 제외함
+        acc = acc.slice(0, s) + target.split('').reverse().join('') + acc.slice(e + 1);
+
+        return acc;
+    }, my_string);
+}
+
+// 1로 만들기
+function ex137(num_list) {
+    let count = 0
+
+    num_list.forEach((ele)=>{
+        let a = eleㄴ
+
+        while (a !== 1) {
+            if(a % 2 === 0) {
+                a = a/2
+            } else {
+                a = (a-1)/2
+            }
+            count += 1
+        }
+
+    })
+    return count
+}
+
+
+// 합성수 찾기
+function ex138(n) {
+    let count = 0
+    for (let i = 1; i <= n; i++) {
+        if (divider(i) >= 3 ) {
+            count +=1
+        }
+    }
+    return count
+}
+
+function divider(n) {
+    let arr = []
+    for (let i = 1; i <= n; i++) {
+        if (n % i === 0) {
+            arr.push(i);
+        }
+    }
+    return arr.length
+}
+
+
+// 컨트롤 제트
+// 처음 봤을때 스택을 생각하기는 했는데 굳이 라는 생각이 들어서,,,
+function ex139(s) {
+    const a = s.split(' ')
+
+    let b = a.map((ele, idx)=> {
+        if(ele === 'Z') {
+            ele = (-a[idx-1])
+        }
+        return Number(ele)
+    })
+
+    return b.reduce((acc, cur) => acc + cur)
+}
+
+//문자열 계산하기
+// 근데 이거 문제 eval 함수 하나면 string 을 걍 계산해줌 ..
+function ex140(my_string) {
+    let a = my_string.split(' ')
+
+    let answer = Number(a[0])
+    for(let i = 0; i< a.length; i++) {
+        if (a[i] === '+') {
+            answer += Number(a[i+1] )
+        } else if (a[i] === '-') {
+            answer -= Number(a[i+1] )
+        }
+    }
+    return answer
+}
+
+// 진료순서 정하기
+function ex141(emergency) {
+    let answer = []
+    let stack = 0
+    emergency.forEach((ele, idx)=> {
+        let check = 1
+
+        emergency.forEach((val) => {
+            if (ele < val) {
+                check += 1
+            }
+        })
+
+        answer[idx] = check
+        check = 0
+
+    })
+    return answer
+}
+
+
+//구슬을 나누는 경우의 수
+function ex142(balls, share) {
+    return Math.round(factorial(balls) / (factorial(balls - share) * factorial(share) ))
+
+}
+
+function factorial(n) {
+    if(n === 0) {
+        return 1
+    } else {
+        return n * factorial(n-1)
+    }
+}
+
+
+// 로그인 성공?
+function ex143(id_pw, db) {
+    let a = 'fail'
+    db.forEach((ele)=> {
+        if (ele[0] === id_pw[0] && ele[1] !== id_pw[1]) {
+            a = 'wrong pw'
+        } else if (ele[0] === id_pw[0] && ele[1] === id_pw[1]) {
+            a = 'login'
+        }
+    })
+
+    return a
+
+}
+
+
+// 숨어있는 숫자의 덧셈 (2)
+// 진짜 어거지도 이런 어거지가 없다 진짜 거지같이 코드짰다.... ㅠㅠㅠ 다시... 리팩토링 해야지.
+function ex144(my_string) {
+    let a = my_string.split('').map((ele) => Number(ele))
+
+    let arr = ['0']
+    let stack = ''
+
+    let b = a.forEach((ele, idx)=> {
+        if (isNaN(ele) === false ) {
+            stack += String(ele)
+        } else if (isNaN(ele)) {
+            arr.push(stack)
+            stack = ''
+        }
+    })
+
+    arr.push(stack)
+    let c = arr.filter((ele) => ele !== '').map((ele)=> Number(ele))
+    let d = c.reduce((acc, cur) => acc + cur)
+    return d ?? 0
+}
+
+//가까운 수
+function ex145(array, n) {
+    let arr = []
+
+
+    array.sort((a,b)=> a-b ).forEach((ele)=> {
+        arr.push(Math.abs(ele-n))
+    })
+
+    let stack = arr[0]
+    arr.forEach((ele)=> {
+        if (ele < stack) {
+            stack = ele
+        }
+    })
+
+    const find = arr.indexOf(stack)
+    return array[find]
+}
+
+
+// 이진수 더하기
+function solution(bin1, bin2) {
+    let answer = parseInt(bin1, 2) + parseInt(bin2, 2)
+    return answer.toString(2)
+}
+
+// 공 던지기
+function solution(numbers, k) {
+    const lastMan = numbers[numbers.length-1]
+
+    let current = 1
+
+    for(let i = 1; i < k; i++ ) {
+        if(current > lastMan) {
+            current = current - lastMan + 2
+        } else {
+            current += 2
+        }
+    }
+
+    if (current > lastMan) {
+        return current - lastMan
+    }
+
+    return current
+}
+
+// 다른사람 풀이 ,, 이런생각 어떻게하는지모르겠다
+function solution(numbers, k) {
+    // index는 0부터 시작하니 --를 해서 1을 뺴주고 하나를 건너뛰고 이동하니 2를 곱함,
+    // number.length 로 나누는건 길이를 초과하지 않게 하기 위해...
+    // 해당하는값의 index 의 값 반환...
+    return numbers[(--k*2)%numbers.length];
+}
